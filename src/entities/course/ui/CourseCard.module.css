@@ -1,0 +1,26 @@
+.card {
+  background: #151518;
+  border: 1px solid #242424;
+  border-radius: 12px;
+  padding: 16px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: #3a3a3a;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 12px;
+  opacity: 0.6;
+}
