@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router"
 import { HomePage } from "../../pages/HomePage/HomePage"
+import { ProfilePage } from "../../pages/ProfilePage/ProfilePage"
 
 const AppRoutes = () => {
     const navigationRoutes = [
         {path: "/", element: <HomePage/>},
         {path: "/course", element: <div> Course page </div>},
-        //{path: "/profile", element: </>},
+        {path: "/profile/:id", element: <ProfilePage/>},
         //{path: "/", element: <HomePage/>},
         {path: "*", element: <div> Page not found. </div>},
 

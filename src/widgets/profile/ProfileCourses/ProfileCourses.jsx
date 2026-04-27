@@ -1,4 +1,4 @@
-import { CourseCard } from '../../../entities/course/ui/CourseCard/CourseCard';
+import { CourseCard } from '../../../entities/course/ui/CourseCard';
 import { mockCourses } from './mockCourses';
 import styles from './ProfileCourses.module.css';
 
