@@ -19,7 +19,7 @@ export const CourseSection = ({ title, showFilter }) => {
 
         <div className={styles.grid}>
           {mockCourses.map((c) => (
-            <CourseCard key={c.id} title={c.title} />
+            <CourseCard key={c.id} course={c} authorName="User" />
           ))}
         </div>
       </Container>
