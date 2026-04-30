@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./MarkdownEditor.module.css";
 
-const MarkdownEditor = () => {
+export const MarkdownEditor = () => {
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
 
@@ -61,7 +61,7 @@ const MarkdownEditor = () => {
         className={styles.textarea}
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Оставьте комментарий"
+        placeholder="Поле ввода текста..."
       />
 
       <div className={styles.footer}>
@@ -73,4 +73,3 @@ const MarkdownEditor = () => {
   );
 };
 
-export default MarkdownEditor;
