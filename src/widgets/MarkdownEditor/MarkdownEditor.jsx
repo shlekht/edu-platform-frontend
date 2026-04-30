@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import styles from "./MarkdownEditor.module.css";
 
-export const MarkdownEditor = () => {
-  const [text, setText] = useState("");
+export const MarkdownEditor = ({ value, onChange }) => {
   const textareaRef = useRef(null);
 
   const applyFormat = (prefix, suffix = "") => {
@@ -11,16 +10,17 @@ export const MarkdownEditor = () => {
 
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
-    const selectedText = text.substring(start, end);
+
+    const selectedText = value.substring(start, end);
 
     const newText =
-      text.substring(0, start) +
+      value.substring(0, start) +
       prefix +
       selectedText +
       suffix +
-      text.substring(end);
+      value.substring(end);
 
-    setText(newText);
+    onChange(newText);
 
     setTimeout(() => {
       textarea.focus();
@@ -59,8 +59,8 @@ export const MarkdownEditor = () => {
       <textarea
         ref={textareaRef}
         className={styles.textarea}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         placeholder="Поле ввода текста..."
       />
 
@@ -72,4 +72,3 @@ export const MarkdownEditor = () => {
     </div>
   );
 };
-

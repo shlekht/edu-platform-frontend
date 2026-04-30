@@ -5,6 +5,8 @@
   font-family: sans-serif;
   min-height: 150px;
   border: 1px solid #30363d;
+  overflow-x: auto; 
+  max-width: 100%;
 }
 
 
