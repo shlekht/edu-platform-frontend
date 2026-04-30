@@ -1,0 +1,32 @@
+.container {
+  color: #e6edf3;
+  padding: 20px;
+  border-radius: 6px;
+  font-family: sans-serif;
+  min-height: 150px;
+  border: 1px solid #30363d;
+}
+
+
+.container h1,
+.container h2,
+.container h3 {
+  color: #ffffff;
+}
+
+.container a {
+  color: #58a6ff;
+}
+
+.container code {
+  background: #161b22;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.container pre {
+  background: #161b22;
+  padding: 10px;
+  border-radius: 6px;
+  overflow: auto;
+}
