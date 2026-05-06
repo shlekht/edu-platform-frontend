@@ -1,8 +1,11 @@
 import styles from "./Header.module.css";
 import { Button } from "../../shared/ui/Button/Button";
 import { Container } from "../../shared/ui/Container/Container";
+import { useNavigate } from "react-router";
 
 export const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header className={styles.header}>
       <Container>
@@ -10,9 +13,11 @@ export const Header = () => {
           <div className={styles.logo}>Название Платформы</div>
 
           <nav className={styles.nav}>
-            <Button>Главная</Button>
+            <Button onClick={() => navigate("/")} >Главная</Button>
+            <Button onClick={() => navigate("/notes")}>Заметки</Button>
             <Button>Правила</Button>
-            <Button variant="primary">Вход / Регистрация</Button>
+            <Button onClick={() => navigate("/create-course")}>Создать курс</Button>
+            <Button variant="primary" onClick={() => navigate("/profile/1")}>Мой профиль</Button>
           </nav>
         </div>
       </Container>
