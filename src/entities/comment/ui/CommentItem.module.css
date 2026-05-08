@@ -51,21 +51,3 @@
 
   color: #333;
 }
-
-.reportButton {
-  border: none;
-  background: transparent;
-
-  cursor: pointer;
-
-  font-size: 18px;
-  font-weight: 700;
-
-  color: #999;
-
-  transition: color 0.2s ease;
-}
-
-.reportButton:hover {
-  color: #d11a2a;
-}

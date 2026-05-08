@@ -10,9 +10,6 @@ export const CommentsSection = () => {
     console.log('Новый комментарий:', text);
   };
 
-  const handleReportComment = (commentId) => {
-    console.log('Жалоба на комментарий:', commentId);
-  };
 
   return (
     <section className={styles.section}>
@@ -29,7 +26,6 @@ export const CommentsSection = () => {
           <CommentItem
             key={comment.id}
             comment={comment}
-            onReport={handleReportComment}
           />
         ))}
       </div>

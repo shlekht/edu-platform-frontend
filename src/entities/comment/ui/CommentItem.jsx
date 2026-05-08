@@ -1,9 +1,7 @@
 import styles from './CommentItem.module.css';
 
-export const CommentItem = ({ comment, onReport }) => {
-  const handleReport = () => {
-    onReport?.(comment.id);
-  };
+export const CommentItem = ({ comment }) => {
+  
 
   return (
     <div className={styles.comment}>
@@ -25,13 +23,7 @@ export const CommentItem = ({ comment, onReport }) => {
             </span>
           </div>
 
-          <button
-            className={styles.reportButton}
-            onClick={handleReport}
-            aria-label="Пожаловаться"
-          >
-            !
-          </button>
+          
         </div>
 
         <p className={styles.text}>
