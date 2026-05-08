@@ -1,0 +1,19 @@
+.section {
+  width: 100%;
+  max-width: 300px;
+  display: inline-block;
+}
+
+.title {
+  margin-bottom: 24px;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #1f1f1f;
+}
+
+.commentsList {
+  display: flex;
+  flex-direction: column;
+}
