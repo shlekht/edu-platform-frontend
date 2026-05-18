@@ -2,11 +2,14 @@ import styles from "./CourseSection.module.css";
 import { Container } from "../../shared/ui/Container/Container";
 import { CourseCard } from "../../entities/course/ui/CourseCard";
 
-export const CourseSection = ({ title, showFilter }) => {
-  const mockCourses = Array.from({ length: 6 }).map((_, i) => ({
-    id: i,
-    title: `Курс ${i + 1}`,
-  }));
+export const CourseSection = ({ title, courses, showFilter }) => {
+  // const mockCourses = Array.from({ length: 6 }).map((_, i) => ({
+  //   id: i,
+  //   title: `Курс ${i + 1}`,
+  // }));
+
+  const coursesToDisplay = courses
+  const courseType = coursesToDisplay[0].title === 'Добро пожаловать!' ? 'default' : 'custom';
 
   return (
     <section className={styles.section}>
@@ -18,8 +21,8 @@ export const CourseSection = ({ title, showFilter }) => {
         </div>
 
         <div className={styles.grid}>
-          {mockCourses.map((c) => (
-            <CourseCard key={c.id} course={c} authorName="User" />
+          {coursesToDisplay.map((c) => (
+            <CourseCard key={c.id} course={c} authorName="User" courseType={courseType} />
           ))}
         </div>
       </Container>
