@@ -8,7 +8,7 @@ import { NotesPage } from "../../pages/NotesPage/NotesPage";
 const AppRoutes = () => {
     const navigationRoutes = [
         {path: "/", element: <HomePage/>},
-        {path: "/courses/:id", element: <CoursePage />},
+        {path: "/courses/:type/:id", element: <CoursePage />},
         {path: "/profile/:id", element: <ProfilePage/>},
         {path: "/notes", element: <NotesPage />},
         {path: "/create-course", element: <CreateCoursePage/>},

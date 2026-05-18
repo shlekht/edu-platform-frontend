@@ -13,11 +13,16 @@ import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown.css";
 
 import { ContentSwitcher } from "../../features/switchContent/ui/ContentSwitcher";
+import { getDefaultCourseById } from "../../entities/course/model/defaultCourses";
 
 export const CoursePage = () => {
-  const { id } = useParams();
+  const { type, id } = useParams();
+  
+  const course = type === 'default'
+  ? getDefaultCourseById(id)
+  : getCourseById(id);
 
-  const course = getCourseById(id);
+  //const course = getCourseById(id);
   //const defaultCourse = getDefaultCourseById(id);
 
   const [activeTab, setActiveTab] = useState("course");
