@@ -3,12 +3,14 @@ import { Button } from "../../shared/ui/Button/Button";
 import { Container } from "../../shared/ui/Container/Container";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import  RulesWindow from "../RulesWindow/RulesWindow";
 
 export const Header = () => {
   const [showRules, setShowRules] = useState(false);
 
   const navigate = useNavigate();
 
+    
   return (
     <header className={styles.header}>
       <Container>
@@ -27,15 +29,7 @@ export const Header = () => {
 
       {showRules && (
         
-      <div>   
-            <h2>Правила</h2>
-
-            <p>Component for rules</p>
-
-              
-          </div> 
-        
-      )}
+        <RulesWindow /> ) }
 
     </header>
   );
