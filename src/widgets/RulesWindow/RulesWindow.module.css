@@ -1,0 +1,36 @@
+.window {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  z-index: 9999;
+
+  background: #ffffff;
+  border: 4px solid #09cce6;
+  border-radius: 20px;
+
+  padding: 12px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+  transform: translateX(-50%);
+}
+
+.content {
+  min-height: 80px;
+  color: black;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 12px;
+  gap: 6px;
+}
+
+
+.activeTab {
+  background: #eeeeee;
+  border-color: #bdbdbd;
+}
+
