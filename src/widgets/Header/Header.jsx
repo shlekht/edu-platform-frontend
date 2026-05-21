@@ -15,16 +15,17 @@ export const Header = () => {
     <header className={styles.header}>
       <Container>
         <div className={styles.inner}>
-          <div className={styles.logo}>Название Платформы</div>
+          <div className={styles.logo}>☀️ Zerde</div>
 
           <nav className={styles.nav}>
-            <Button onClick={() => navigate("/")} >Главная</Button>
-            <Button onClick={() => navigate("/notes")}>Заметки</Button>
-            <Button onClick={() => setShowRules(!showRules)}> Правила </Button>
-            <Button onClick={() => navigate("/create-course")}>Создать курс</Button>
-            <Button variant="primary" onClick={() => navigate("/profile/1")}>Мой профиль</Button>
+            <Button onClick={() => navigate("/")} >📚 Главная</Button>
+            <Button onClick={() => navigate("/notes")}>🖋️ Заметки</Button>
+            <Button onClick={() => setShowRules(!showRules)}>📓 Правила </Button>
+            <Button onClick={() => navigate("/create-course")}>🏫 Создать курс</Button>
+            <Button variant="primary" onClick={() => navigate("/profile/1")}>👤 Мой профиль</Button>
           </nav>
         </div>
+        
       </Container>
 
       {showRules && (

@@ -1,23 +1,22 @@
 .button {
   padding: 10px 16px;
   border-radius: 8px;
-  border: 1px solid #2a2a2a;
-  background: transparent;
-  color: white;
+  border: none;
+  background: none;
+  /* background: #60A5FA; */
+  color: #222222;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .button:hover {
-  background: #1a1a1a;
+  background: #EAF4FF;
+  scale : 1.1;
+  transition: 0.2s;
 }
 
 .primary {
   background: white;
   color: black;
   border: none;
-}
-
-.primary:hover {
-  background: #dcdcdc;
 }
