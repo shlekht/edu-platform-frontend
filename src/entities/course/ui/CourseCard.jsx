@@ -12,8 +12,8 @@ export const CourseCard = ({ course, authorName, courseType }) => {
   return (
     <div className={styles.card} onClick = {handleClick}>
       <div className={styles.title}>{course.title}</div>
-      <div className={styles.meta}>
-        {courseType === "default" ? "Платформа Zerde" : authorName}
+      <div className={styles.author}>
+        {courseType === "default" ? "" : authorName}
       </div>
     </div>
   );

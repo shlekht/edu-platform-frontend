@@ -14,7 +14,7 @@ export const HomePage = () => {
 
       <main>
         <CourseSection title="Курсы платформы" courses={defaultCourses} />
-        <CourseSection title="Пользовательские курсы" courses={mockCourses} showFilter />
+        <CourseSection title="Пользовательские курсы" courses={mockCourses} />
       </main>
 
       <Footer />

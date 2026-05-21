@@ -2,7 +2,6 @@ import { useParams } from "react-router";
 import { useState } from "react";
 import { getCourseById } from "../../entities/course/model/getCourseById";
 
-//import { getDefaultCourseById } from "../../entities/course/model/defaultCourses";
 
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
@@ -10,7 +9,8 @@ import { CommentsSection } from '../../widgets/commentsSection/CommentsSection';
 import { Container } from "../../shared/ui/Container/Container";
 
 import ReactMarkdown from "react-markdown";
-import "github-markdown-css/github-markdown.css";
+import "github-markdown-css/github-markdown-light.css";
+
 
 import { ContentSwitcher } from "../../features/switchContent/ui/ContentSwitcher";
 import { getDefaultCourseById } from "../../entities/course/model/defaultCourses";
@@ -22,8 +22,6 @@ export const CoursePage = () => {
   ? getDefaultCourseById(id)
   : getCourseById(id);
 
-  //const course = getCourseById(id);
-  //const defaultCourse = getDefaultCourseById(id);
 
   const [activeTab, setActiveTab] = useState("course");
 
@@ -35,19 +33,32 @@ export const CoursePage = () => {
     <>
     <Header />
     <Container>
-      <ContentSwitcher
+      {type === 'custom' ? (
+        <ContentSwitcher
         activeTab={activeTab}
         onChange={setActiveTab}
       />
 
+      ):(
+        <></>
+
+      )}
+      
+
     {activeTab === "course" ? (
-        <div className="markdown-body">
+        <div className="markdown-body" style={{ backgroundColor: "#F3F4F6", paddingTop: "30px"}}>
             <ReactMarkdown>
               {course.content}
             </ReactMarkdown>
           </div>
       ) : (
+        <div style = {{display: "flex",
+      justifyContent: "center",
+      
+      
+      }}>
         <CommentsSection />
+        </div>
       )}
 
       </Container>

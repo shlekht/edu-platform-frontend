@@ -1,7 +1,10 @@
 .header {
-  border-bottom: 1px solid #222;
-  background: #0f0f12;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E5E7EB;
   padding: 16px 0;
+  position: relative;
+  z-index: 10;
 }
 
 .inner {
@@ -12,7 +15,7 @@
 
 .logo {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 26px;
 }
 
 .nav {

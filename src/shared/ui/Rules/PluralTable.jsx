@@ -4,12 +4,14 @@ export const PluralTable = () => {
   return (
     <div>
     <table border="1" className={styles.table}>
+      <thead>
   <tr>
     <th>Последний звук слова</th>
     <th>Окончания</th>
     <th>Пример</th>
   </tr>
-
+    </thead>
+    <tbody>
   <tr>
     <td>После всех гласных и сонорных "р, у, й"</td>
     <td>лар - лер</td>
@@ -28,7 +30,7 @@ export const PluralTable = () => {
     <td>Қарындастар - сестренки</td>
   </tr>
 
-  
+  </tbody>
 </table>
 </div>
   );
