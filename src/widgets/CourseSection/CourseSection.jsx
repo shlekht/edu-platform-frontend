@@ -2,11 +2,10 @@ import styles from "./CourseSection.module.css";
 import { Container } from "../../shared/ui/Container/Container";
 import { CourseCard } from "../../entities/course/ui/CourseCard";
 
-export const CourseSection = ({ title, courses}) => {
+export const CourseSection = ({ title, courses, type}) => {
 
   const coursesToDisplay = courses
-  const courseType = coursesToDisplay[0].title === 'Добро пожаловать!' ? 'default' : 'custom';
-
+  
   return (
     <section className={styles.section}>
       <Container>
@@ -18,7 +17,7 @@ export const CourseSection = ({ title, courses}) => {
 
         <div className={styles.grid}>
           {coursesToDisplay.map((c) => (
-            <CourseCard key={c.id} course={c} authorName="User" courseType={courseType} />
+            <CourseCard key={c.id} course={c} authorName="User" courseType={type} />
           ))}
         </div>
       </Container>

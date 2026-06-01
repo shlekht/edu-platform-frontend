@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
-import { useState } from "react";
-import { getCourseById } from "../../entities/course/model/getCourseById";
+import { useState, useEffect } from "react";
+//import { getCourseById } from "../../entities/course/model/getCourseById";
 
 
 import { Header } from "../../widgets/Header/Header";
@@ -11,19 +11,46 @@ import { Container } from "../../shared/ui/Container/Container";
 import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown-light.css";
 
-
+import { getCourseById } from "../../entities/course/api";  
 import { ContentSwitcher } from "../../features/switchContent/ui/ContentSwitcher";
 import { getDefaultCourseById } from "../../entities/course/model/defaultCourses";
 
 export const CoursePage = () => {
   const { type, id } = useParams();
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+   const [activeTab, setActiveTab] = useState("course");
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        setLoading(true);
+
+        if (type === 'default') {
+          const data = getDefaultCourseById(id);
+          setCourse(data);
+        } else {
+          const data = await getCourseById(id);
+          setCourse(data);
+        }
+      } catch (error) {
+        console.error("Ошибка при загрузке курса:", error);
+        setCourse(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourse();
+  }, [type, id]);
+
   
-  const course = type === 'default'
-  ? getDefaultCourseById(id)
-  : getCourseById(id);
+  // const course = type === 'default'
+  // ? getDefaultCourseById(id)
+  // : getCourseById(id);
 
 
-  const [activeTab, setActiveTab] = useState("course");
+ 
 
   if (!course) {
     return <div>Курс не найден или удалён.</div>;
@@ -46,20 +73,20 @@ export const CoursePage = () => {
       
 
     {activeTab === "course" ? (
-        <div className="markdown-body" style={{ backgroundColor: "#F3F4F6", paddingTop: "30px"}}>
-            <ReactMarkdown>
-              {course.content}
-            </ReactMarkdown>
-          </div>
-      ) : (
-        <div style = {{display: "flex",
-      justifyContent: "center",
-      
-      
-      }}>
-        <CommentsSection />
-        </div>
-      )}
+  loading ? (
+    <p>Загрука курса...</p>
+  ) : (
+    <div className="markdown-body" style={{ backgroundColor: "#F3F4F6", paddingTop: "30px" }}>
+      <ReactMarkdown>
+        {course.content}
+      </ReactMarkdown>
+    </div>
+  )
+) : (
+  <div style={{ display: "flex", justifyContent: "center" }}>
+    <CommentsSection />
+  </div>
+)}
 
       </Container>
     <Footer />
