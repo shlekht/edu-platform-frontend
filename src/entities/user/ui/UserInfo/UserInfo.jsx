@@ -6,7 +6,7 @@ export const UserInfo = ({ user }) => {
     <div className={styles.wrapper}>
       <h2>{user.name}</h2>
       <p>{user.email}</p>
-      <p>{user.bio}</p>
+      <p>{user.role}</p>
     </div>
   );
 };
