@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 export const apiClient = axios.create({
-  baseURL: '',
+  baseURL: 'http://localhost:8000',
   timeout: 5000,
   headers: { 'X-Custom-Header': 'my-custom-value' }
 });
@@ -28,9 +28,9 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Токен невалиден — чистим хранилище и, например, редиректим на логин
+      
       localStorage.removeItem('token');
-      window.location.href = '/login'; 
+      alert('Необходимо войти в систему.');
     }
     return Promise.reject(error);
   }
