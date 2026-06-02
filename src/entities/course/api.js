@@ -12,4 +12,8 @@ export const getCourseById = async (id) => {
 }
 
 
+export const createCourse = async (courseData) => {
+  const response = await apiClient.post('/courses', courseData);
+  return response.data;
+}
 

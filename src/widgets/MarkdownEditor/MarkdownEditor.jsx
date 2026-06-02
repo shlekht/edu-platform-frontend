@@ -64,11 +64,7 @@ export const MarkdownEditor = ({ value, onChange }) => {
         placeholder="Поле ввода текста..."
       />
 
-      <div className={styles.footer}>
-        <button className={styles.submitBtn}>
-          Создать
-        </button>
-      </div>
+      
     </div>
   );
 };
