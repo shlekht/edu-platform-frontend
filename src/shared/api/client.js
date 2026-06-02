@@ -30,7 +30,7 @@ apiClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       
       localStorage.removeItem('token');
-      alert('Необходимо войти в систему.');
+      alert('Необходимо войти в систему.'); 
     }
     return Promise.reject(error);
   }

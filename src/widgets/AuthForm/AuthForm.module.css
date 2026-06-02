@@ -1,0 +1,30 @@
+.container {
+  max-width: 300px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.submitBtn:disabled {
+  cursor: not-allowed;
+}
+
+.toggleBtn {
+  background: none;
+  border: none;
+  color: blue;
+  margin-top: 15px;
+  cursor: pointer;
+  text-decoration: underline;
+}
