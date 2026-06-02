@@ -9,7 +9,7 @@ const AppRoutes = () => {
     const navigationRoutes = [
         {path: "/", element: <HomePage/>},
         {path: "/courses/:type/:id", element: <CoursePage />},
-        {path: "/profile/:id", element: <ProfilePage/>},
+        {path: "/profile/", element: <ProfilePage/>},
         {path: "/notes", element: <NotesPage />},
         {path: "/create-course", element: <CreateCoursePage/>},
         {path: "*", element: <div> Page not found. </div>},

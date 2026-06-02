@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { UserContext } from '../../entities/user/model/userContext';
-import { apiClient } from '../../shared/api/client';
+import { loginUser, getMe } from '../../entities/user/api';
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -8,42 +8,28 @@ export const UserProvider = ({ children }) => {
 
   
   const login = async (username, password) => {
-    
-    const formData = new FormData();
-    formData.append('username', username);
-    formData.append('password', password);
-
-    const response = await apiClient.post('/token', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    });
-
-    const { access_token } = response.data;
-    localStorage.setItem('token', access_token);
-    
-    
-    const userResponse = await apiClient.get('/user/me');
-    setUser(userResponse.data);
+    const data = await loginUser({ username, password });
+    localStorage.setItem('token', data.access_token);
+    const userData = await getMe();
+    setUser(userData);
   };
- 
-    const logout = () => {
-      localStorage.removeItem('token');
-      setUser(null);
-    };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+  };
 
   useEffect(() => {
-    
     const token = localStorage.getItem('token');
-  
-  if (token) {
-    apiClient.get('/user/me')
-      .then((res) => setUser(res.data))
-      .catch(() => logout())
-      .finally(() => setLoading(false));
-  } else {
-    setTimeout(() => setLoading(false), 0);
-  }
-}, []);
-  
+    if (token) {
+      getMe()
+        .then((userData) => setUser(userData))
+        .catch(() => logout())
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, login, logout, loading }}>

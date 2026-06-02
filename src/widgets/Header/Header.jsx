@@ -22,7 +22,7 @@ export const Header = () => {
             <Button onClick={() => navigate("/notes")}>🖋️ Заметки</Button>
             <Button onClick={() => setShowRules(!showRules)}>📓 Правила </Button>
             <Button onClick={() => navigate("/create-course")}>🏫 Создать курс</Button>
-            <Button variant="primary" onClick={() => navigate("/profile/1")}>👤 Мой профиль</Button>
+            <Button variant="primary" onClick={() => navigate("/profile")}>👤 Мой профиль</Button>
           </nav>
         </div>
         
