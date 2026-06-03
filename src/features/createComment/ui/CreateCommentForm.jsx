@@ -1,18 +1,20 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Button } from '../../../shared/ui/Button/Button';
+import { Button } from "../../../shared/ui/Button/Button";
 
-import styles from './CreateCommentForm.module.css';
+import styles from "./CreateCommentForm.module.css";
 
 export const CreateCommentForm = ({ onSubmit }) => {
-  const [text, setText] = useState('');
-
+  const [text, setText] = useState("");
   const handleSubmit = () => {
-    if (!text.trim()) return;
+    if (!text.trim()) {
+      alert("Комментарий не может быть пустым");
+      return;
+    }
 
     onSubmit?.(text);
 
-    setText('');
+    setText("");
   };
 
   return (
@@ -25,9 +27,7 @@ export const CreateCommentForm = ({ onSubmit }) => {
       />
 
       <div className={styles.actions}>
-        <Button onClick={handleSubmit}>
-          Оставить комментарий
-        </Button>
+        <Button onClick={handleSubmit}>Оставить комментарий</Button>
       </div>
     </div>
   );
