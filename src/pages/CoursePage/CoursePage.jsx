@@ -12,6 +12,7 @@ import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown-light.css";
 
 import { getCourseById } from "../../entities/course/api";  
+import { getCommentsByCourseId } from "../../entities/comment/api"; 
 import { ContentSwitcher } from "../../features/switchContent/ui/ContentSwitcher";
 import { getDefaultCourseById } from "../../entities/course/model/defaultCourses";
 
@@ -19,8 +20,13 @@ export const CoursePage = () => {
   const { type, id } = useParams();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
-   const [activeTab, setActiveTab] = useState("course");
+  const [activeTab, setActiveTab] = useState("course");
 
+  const [comments, setComments] = useState([]);
+  const [commentsLoading, setCommentsLoading] = useState(false);
+
+
+  // useEffect на сам курс
   useEffect(() => {
     const fetchCourse = async () => {
       try {
@@ -44,13 +50,23 @@ export const CoursePage = () => {
     fetchCourse();
   }, [type, id]);
 
-  
-  // const course = type === 'default'
-  // ? getDefaultCourseById(id)
-  // : getCourseById(id);
+// useEffect на комментарии курса
+  useEffect(() => {
+    console.log('fetchComments useEffect сработал, id:', id);
+    const fetchComments = async () => {
+      try {
+        setCommentsLoading(true);
+        const data = await getCommentsByCourseId(id); 
+        setComments(data);
+      } catch (error) {
+        console.error("Ошибка при загрузке комментариев:", error);
+      } finally {
+        setCommentsLoading(false);
+      }
+    };
 
-
- 
+    fetchComments();
+  }, [id]); 
 
   if (!course) {
     return <div>Курс не найден или удалён.</div>;
@@ -84,7 +100,15 @@ export const CoursePage = () => {
   )
 ) : (
   <div style={{ display: "flex", justifyContent: "center" }}>
-    <CommentsSection />
+    {commentsLoading ? (
+      <p>Загрузка комментариев...</p>
+    ) : (
+      <>
+       {console.log('Является ли массивом:', Array.isArray(comments))}
+{console.log('Комментарии:', comments)}
+      <CommentsSection commentsList={comments}/>
+      </>
+    )}
   </div>
 )}
 
