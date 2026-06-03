@@ -1,43 +1,41 @@
+import { useState, useEffect } from "react";
+import { CommentItem } from "../../entities/comment/ui/CommentItem";
+import { createComment } from "../../entities/comment/api";
 
-import { CommentItem } from '../../entities/comment/ui/CommentItem';
+import { CreateCommentForm } from "../../features/createComment/ui/CreateCommentForm";
 
-import { CreateCommentForm } from '../../features/createComment/ui/CreateCommentForm';
+import styles from "./CommentsSection.module.css";
 
-import styles from './CommentsSection.module.css';
+export const CommentsSection = ({ commentsList, id }) => {
+  const [comments, setComments] = useState(commentsList || []);
+  const courseId = id;
+  console.log("courseId из useParams:", courseId);
+  useEffect(() => {
+    setComments(commentsList || []);
+  }, [commentsList]);
 
-export const CommentsSection = ({ commentsList }) => {
-  console.log('CommentsSection получил комментарии:', commentsList);
-  const comments = commentsList || []
-  
-  const handleCreateComment = (text) => {
-    console.log('Новый комментарий:', text);
+  const handleCreateComment = async (text) => {
+    try {
+      const newComment = await createComment(courseId, { text });
+      setComments((prevComments) => [newComment, ...prevComments]);
+    } catch (error) {
+      console.error("Ошибка при создании комментария:", error);
+      alert("Ошибка при создании комментария.");
+    }
   };
-
 
   return (
     <section className={styles.section}>
-      
-
-      <CreateCommentForm
-        onSubmit={handleCreateComment}
-      />
+      <CreateCommentForm onSubmit={handleCreateComment} />
 
       {comments.length === 0 ? (
-        <h3 align='center'>
-          Комментариев пока нет
-        </h3>
+        <h3 align="center">Комментариев пока нет</h3>
       ) : null}
 
       <div className={styles.commentsList}>
-        
-          {comments.map((comment) => (
-            <CommentItem
-              key={comment.id}
-              comment={comment}
-            />
-          )
-          )}
-        
+        {comments.map((comment) => (
+          <CommentItem key={comment.id} comment={comment} />
+        ))}
       </div>
     </section>
   );
