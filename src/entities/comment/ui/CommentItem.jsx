@@ -1,7 +1,7 @@
 import styles from './CommentItem.module.css';
 
 export const CommentItem = ({ comment }) => {
-  console.log("Comment:", comment);
+  
 
 
   const date = new Date(comment.created_at)

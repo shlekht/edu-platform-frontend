@@ -23,7 +23,7 @@ export const NotesPage = () => {
   useEffect(() => {
     if (user) {
       getNotes().then((fetchedNotes) => {
-        console.log("Заметки:", fetchedNotes);
+        
         setNotes(fetchedNotes);
         if (fetchedNotes && fetchedNotes.length > 0) {
           setSelectedNote(fetchedNotes[0]);

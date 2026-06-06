@@ -17,3 +17,7 @@ export const createCourse = async (courseData) => {
   return response.data;
 }
 
+export const deleteCourse = async (courseId) => {
+  const response = await apiClient.delete(`/courses/${courseId}`);
+  return response.data;
+};
