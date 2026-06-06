@@ -1,19 +1,20 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-//import { getCourseById } from "../../entities/course/model/getCourseById";
+import { useUserContext } from "../../entities/user/model/userContext";
 
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
 import { CommentsSection } from "../../widgets/commentsSection/CommentsSection";
 import { Container } from "../../shared/ui/Container/Container";
+import { Button } from "../../shared/ui/Button/Button";
 
 import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown-light.css";
 
-import { getCourseById } from "../../entities/course/api";
+import { getCourseById, deleteCourse } from "../../entities/course/api";
+import { getDefaultCourseById } from "../../entities/course/model/defaultCourses";
 import { getCommentsByCourseId } from "../../entities/comment/api";
 import { ContentSwitcher } from "../../features/switchContent/ui/ContentSwitcher";
-import { getDefaultCourseById } from "../../entities/course/model/defaultCourses";
 
 export const CoursePage = () => {
   const { type, id } = useParams();
@@ -23,6 +24,7 @@ export const CoursePage = () => {
 
   const [comments, setComments] = useState([]);
   const [commentsLoading, setCommentsLoading] = useState(false);
+  const { user } = useUserContext();
 
   // useEffect на сам курс
   useEffect(() => {
@@ -69,15 +71,45 @@ export const CoursePage = () => {
     return <div>Курс не найден или удалён.</div>;
   }
 
+  const handleDelete = async () => {
+    if (window.confirm("Вы уверены, что хотите удалить этот курс?")) {
+      try {
+        await deleteCourse(id);
+        alert("Курс успешно удалён.");
+        window.location.href = "edu-platform-frontend/";
+      } catch (error) {
+        console.error("Ошибка при удалении курса:", error);
+      }
+    }
+  };
+
+  const canDelete = type === "custom" && user && user.id === course.author_id;
+
+  
   return (
     <>
       <Header />
       <Container>
         {type === "custom" ? (
-          <ContentSwitcher activeTab={activeTab} onChange={setActiveTab} />
-        ) : (
-          <></>
-        )}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <ContentSwitcher activeTab={activeTab} onChange={setActiveTab} />
+
+            {canDelete && (
+              <Button
+                onClick={handleDelete}
+                style={{ backgroundColor: "red", color: "white", margin: "10px" }}
+              >
+                Удалить курс
+              </Button>
+            )}
+          </div>
+        ) : null}
 
         {activeTab === "course" ? (
           loading ? (
@@ -96,7 +128,7 @@ export const CoursePage = () => {
               <p>Загрузка комментариев...</p>
             ) : (
               <>
-                {console.log("id из CoursePage:", id)}
+                
                 <CommentsSection commentsList={comments} id={id} />
               </>
             )}

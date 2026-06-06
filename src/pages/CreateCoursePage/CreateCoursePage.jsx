@@ -47,7 +47,7 @@ export const CreateCoursePage = () => {
     setTitle("");
     setDescription("");
     setText("");
-    console.log("Данные для отправки на POST /courses:", courseData);
+    
     createCourse(courseData)
       .then((response) => {
         console.log("Ответ от сервера:", response);

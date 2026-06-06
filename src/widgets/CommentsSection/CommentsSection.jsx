@@ -9,7 +9,7 @@ import styles from "./CommentsSection.module.css";
 export const CommentsSection = ({ commentsList, id }) => {
   const [comments, setComments] = useState(commentsList || []);
   const courseId = id;
-  console.log("courseId из useParams:", courseId);
+  
   useEffect(() => {
     setComments(commentsList || []);
   }, [commentsList]);
