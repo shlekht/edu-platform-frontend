@@ -2,11 +2,13 @@ import { useState } from "react";
 
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
+import { ChatWidget } from "../../widgets/ChatWidget/ChatWidget";
 import { MarkdownEditor } from "../../widgets/MarkdownEditor/MarkdownEditor";
 import { MarkdownPreview } from "../../widgets/MarkdownPreview/MarkdownPreview";
 import { Container } from '../../shared/ui/Container/Container';
 import { Input } from '../../shared/ui/Input/Input';
 import { createCourse } from '../../entities/course/api';
+
 
 import styles from "./CreateCoursePage.module.css";
 
@@ -106,7 +108,7 @@ export const CreateCoursePage = () => {
           </div>
         </div>
       </Container>
-
+      <ChatWidget/>
       <Footer />
     </>
   );
