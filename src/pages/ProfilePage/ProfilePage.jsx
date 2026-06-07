@@ -7,6 +7,7 @@ import { mockUsers } from '../../entities/user/model/mock';
 import { ProfileInfo } from '../../widgets/profile/ProfileInfo/ProfileInfo';
 import { ProfileCourses } from '../../widgets/profile/ProfileCourses/ProfileCourses';
 import { useUserContext } from '../../entities/user/model/userContext';
+import { ChatWidget } from '../../widgets/ChatWidget/ChatWidget';
 
 
 
@@ -27,7 +28,7 @@ export const ProfilePage = () => {
           <AuthForm />
         )}
       </Container>
-
+        <ChatWidget/>
       <Footer />
     </>
   );

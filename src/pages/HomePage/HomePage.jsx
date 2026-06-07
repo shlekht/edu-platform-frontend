@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
 import { CourseSection } from "../../widgets/CourseSection/CourseSection";
+import { ChatWidget } from "../../widgets/ChatWidget/ChatWidget";
 
 import styles from "./HomePage.module.css";
 
 import { defaultCourses } from "../../entities/course/model/defaultCourses";
 import { getAllCourses } from "../../entities/course/api";
-//import { mockCourses } from "../../entities/course/model/getCourseById";
+
 
 export const HomePage = () => {
   const [customCourses, setCustomCourses] = useState([]);
@@ -32,7 +33,7 @@ export const HomePage = () => {
           <CourseSection title="Пользовательские курсы" courses={customCourses} type = "custom"/>
         }
       </main>
-
+        <ChatWidget />
       <Footer />
     </div>
   );

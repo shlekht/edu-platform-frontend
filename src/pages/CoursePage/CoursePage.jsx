@@ -4,6 +4,7 @@ import { useUserContext } from "../../entities/user/model/userContext";
 
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
+import { ChatWidget } from "../../widgets/ChatWidget/ChatWidget";
 import { CommentsSection } from "../../widgets/commentsSection/CommentsSection";
 import { Container } from "../../shared/ui/Container/Container";
 import { Button } from "../../shared/ui/Button/Button";
@@ -135,6 +136,8 @@ export const CoursePage = () => {
           </div>
         )}
       </Container>
+      <></>
+      <ChatWidget/>
       <Footer />
     </>
   );

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./NotesPage.module.css";
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
+import { ChatWidget } from "../../widgets/ChatWidget/ChatWidget";
 import { AuthForm } from "../../widgets/AuthForm/AuthForm";
 import { Container } from "../../shared/ui/Container/Container";
 import { useUserContext } from "../../entities/user/model/userContext";
@@ -172,7 +173,7 @@ export const NotesPage = () => {
       ) : (
         <AuthForm />
       )}
-
+      <ChatWidget/>
       <Footer />
     </div>
   );
