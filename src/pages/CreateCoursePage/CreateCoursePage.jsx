@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
@@ -8,6 +8,7 @@ import { MarkdownPreview } from "../../widgets/MarkdownPreview/MarkdownPreview";
 import { Container } from '../../shared/ui/Container/Container';
 import { Input } from '../../shared/ui/Input/Input';
 import { createCourse } from '../../entities/course/api';
+import { useUserContext } from "../../entities/user/model/userContext";
 
 
 import styles from "./CreateCoursePage.module.css";
@@ -16,8 +17,15 @@ export const CreateCoursePage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [text, setText] = useState("");
+  const {user} = useUserContext()
   
-
+  
+  useEffect(() => {
+  if (user && user.role !== "teacher") {
+    alert('Создание курса доступно только роли "teacher"');
+    window.location.href = '/';
+  }
+});
   
   const handleSubmit = (e) => {
     e.preventDefault(); // Предотвращаем перезагрузку страницы, если кнопка внутри формы
