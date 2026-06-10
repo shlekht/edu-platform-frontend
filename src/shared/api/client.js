@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 
-
-
 export const apiClient = axios.create({
   baseURL: 'http://localhost:8000',
   timeout: 10000,
@@ -30,7 +28,8 @@ apiClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       
       localStorage.removeItem('token');
-      alert('Необходимо войти в систему.'); 
+      alert('Необходимо войти в систему.');
+      window.location.href = "/"; 
     }
     return Promise.reject(error);
   }
