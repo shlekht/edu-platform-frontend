@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import styles from './AuthForm.module.css'; 
-import {Button} from '../../shared/ui/Button/Button';
-import {Input} from '../../shared/ui/Input/Input';
-import { registerUser } from '../../entities/user/api';
-import { useUserContext } from '../../entities/user/model/userContext';
+import React, { useState } from "react";
+import styles from "./AuthForm.module.css";
+import { Button } from "../../shared/ui/Button/Button";
+import { Input } from "../../shared/ui/Input/Input";
+import { registerUser } from "../../entities/user/api";
+import { useUserContext } from "../../entities/user/model/userContext";
 
 export const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    email: '',
-    full_name: '',
-    password: '',
+    email: "",
+    full_name: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useUserContext();
 
@@ -22,23 +22,25 @@ export const AuthForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-
-    
+    setError("");
 
     setLoading(true);
 
     try {
-    if (isLogin) {
-      await login(formData.email, formData.password);
-    } else {
+      if (isLogin) {
+        await login(formData.email, formData.password);
+      } else {
         await registerUser(formData);
-        alert('Регистрация прошла успешно! Теперь вы можете войти.');
-        setFormData({ email: '', full_name: '', password: '' });
-        setIsLogin(true); 
+        alert("Регистрация прошла успешно! Теперь вы можете войти.");
+        setFormData({ email: "", full_name: "", password: "" });
+        setIsLogin(true);
       }
     } catch (err) {
-      setError(err.response?.data?.detail || 'Что-то пошло не так...');
+      setError(
+        err.response?.status === 401
+          ? "Неверная почта и/или пароль."
+          : err.response?.data?.message || "Что-то пошло не так...",
+      );
     } finally {
       setLoading(false);
     }
@@ -46,12 +48,10 @@ export const AuthForm = () => {
 
   return (
     <div className={styles.container}>
-      <h2>{isLogin ? 'Вход' : 'Регистрация'}</h2>
-      
+      <h2>{isLogin ? "Вход" : "Регистрация"}</h2>
+
       <form onSubmit={handleSubmit}>
         <div className={styles.inputGroup}>
-          
-          
           <Input
             type="email"
             name="email"
@@ -61,7 +61,6 @@ export const AuthForm = () => {
             required
           />
 
-          
           {!isLogin && (
             <Input
               type="text"
@@ -72,8 +71,7 @@ export const AuthForm = () => {
               required
             />
           )}
-          
-          
+
           <Input
             type="password"
             name="password"
@@ -82,26 +80,26 @@ export const AuthForm = () => {
             onChange={handleChange}
             required
           />
-
         </div>
 
         {error && <p className={styles.error}>{error}</p>}
 
         <Button type="submit" disabled={loading} className={styles.submitBtn}>
-          {loading ? 'Загрузка...' : isLogin ? 'Войти' : 'Создать аккаунт'}
+          {loading ? "Загрузка..." : isLogin ? "Войти" : "Создать аккаунт"}
         </Button>
       </form>
 
-      <Button 
+      <Button
         onClick={() => {
           setIsLogin(!isLogin);
-          setError(''); 
-        }} 
+          setError("");
+        }}
         className={styles.toggleBtn}
       >
-        {isLogin ? 'Нет аккаунта? Зарегистрироваться' : 'Уже есть аккаунт? Войти'}
+        {isLogin
+          ? "Нет аккаунта? Зарегистрироваться"
+          : "Уже есть аккаунт? Войти"}
       </Button>
     </div>
   );
 };
-

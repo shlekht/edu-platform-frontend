@@ -1,4 +1,5 @@
 import { Container } from '../../shared/ui/Container/Container';
+import { Button } from '../../shared/ui/Button/Button';
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
 import { AuthForm } from "../../widgets/AuthForm/AuthForm";
@@ -12,7 +13,7 @@ import { ChatWidget } from '../../widgets/ChatWidget/ChatWidget';
 
 
 export const ProfilePage = () => {
-  const { user } = useUserContext();
+  const { user, logout } = useUserContext();
 
   return (
     <>
@@ -22,6 +23,7 @@ export const ProfilePage = () => {
         {user ? (
           <>
             <ProfileInfo profileUser={user} />
+            <Button onClick = {logout} style={{ backgroundColor: "red", color: "white", marginBottom: "10px" }}> Выход </Button>
             <ProfileCourses users={mockUsers} />
           </>
         ) : (

@@ -27,6 +27,15 @@ export const CoursePage = () => {
   const [commentsLoading, setCommentsLoading] = useState(false);
   const { user } = useUserContext();
 
+  useEffect(() => {
+    
+
+    if (!user) {
+      alert("Для просмотра курса необходимо войти в систему.");
+      window.location.href = "/";
+    }
+  }, [user]);
+
   // useEffect на сам курс
   useEffect(() => {
     const fetchCourse = async () => {
@@ -67,7 +76,9 @@ export const CoursePage = () => {
 
     fetchComments();
   }, [id]);
-
+  if (loading) {
+    return <div>Загрузка курса...</div>;
+  }
   if (!course) {
     return <div>Курс не найден или удалён.</div>;
   }
@@ -86,7 +97,6 @@ export const CoursePage = () => {
 
   const canDelete = type === "custom" && user && user.id === course.author_id;
 
-  
   return (
     <>
       <Header />
@@ -104,7 +114,11 @@ export const CoursePage = () => {
             {canDelete && (
               <Button
                 onClick={handleDelete}
-                style={{ backgroundColor: "red", color: "white", margin: "10px" }}
+                style={{
+                  backgroundColor: "red",
+                  color: "white",
+                  margin: "10px",
+                }}
               >
                 Удалить курс
               </Button>
@@ -129,7 +143,6 @@ export const CoursePage = () => {
               <p>Загрузка комментариев...</p>
             ) : (
               <>
-                
                 <CommentsSection commentsList={comments} id={id} />
               </>
             )}
@@ -137,7 +150,7 @@ export const CoursePage = () => {
         )}
       </Container>
       <></>
-      <ChatWidget/>
+      <ChatWidget />
       <Footer />
     </>
   );

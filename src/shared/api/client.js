@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-
-
+const AUTH_ENDPOINTS = ['/auth/token', '/auth/register'];
 
 export const apiClient = axios.create({
   baseURL: 'http://localhost:8000',
@@ -27,11 +26,17 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
-      
+    const token = localStorage.getItem('token');
+
+    if (
+      error.response?.status === 401 &&
+      token
+    ) {
       localStorage.removeItem('token');
-      alert('Необходимо войти в систему.'); 
+      alert('Сессия истекла. Войдите снова.');
+      window.location.href = '/';
     }
+
     return Promise.reject(error);
   }
 );
