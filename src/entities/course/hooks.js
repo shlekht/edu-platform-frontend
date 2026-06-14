@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getCourseById } from "./api";
+import { getCourseById, getAllCourses } from "./api";
 import { getDefaultCourseById } from "./model/defaultCourses";
 
 export const useCourse = (id, type) => {
@@ -29,4 +29,20 @@ export const useCourse = (id, type) => {
   }, [type, id]);
 
   return { course, isLoading };
+};
+
+export const useCourses = () => {
+  const [customCourses, setCustomCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getAllCourses()
+      .then((data) => {
+        setCustomCourses(data || []);
+      })
+      .catch((err) => console.error("Ошибка при загрузке курсов:", err))
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  return { customCourses, isLoading };
 };
