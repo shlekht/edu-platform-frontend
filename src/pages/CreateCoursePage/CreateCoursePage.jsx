@@ -5,11 +5,10 @@ import { Footer } from "../../widgets/Footer/Footer";
 import { ChatWidget } from "../../widgets/ChatWidget/ChatWidget";
 import { MarkdownEditor } from "../../widgets/MarkdownEditor/MarkdownEditor";
 import { MarkdownPreview } from "../../widgets/MarkdownPreview/MarkdownPreview";
-import { Container } from '../../shared/ui/Container/Container';
-import { Input } from '../../shared/ui/Input/Input';
-import { createCourse } from '../../entities/course/api';
+import { Container } from "../../shared/ui/Container/Container";
+import { Input } from "../../shared/ui/Input/Input";
+import { createCourse } from "../../entities/course/api";
 import { useUserContext } from "../../entities/user/model/userContext";
-
 
 import styles from "./CreateCoursePage.module.css";
 
@@ -17,23 +16,18 @@ export const CreateCoursePage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [text, setText] = useState("");
-  const {user} = useUserContext()
-  
-  
+  const { user } = useUserContext();
+
   useEffect(() => {
-  if (user && user.role !== "teacher") {
-    alert('Создание курса доступно только роли "teacher"');
-    window.location.href = '/';
-  }
-});
-  
+    if (user && user.role !== "teacher") {
+      alert('Создание курса доступно только роли "teacher"');
+      window.location.href = "/";
+    }
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Предотвращаем перезагрузку страницы, если кнопка внутри формы
 
-    
-    
-
-    
     if (!title.trim()) {
       alert("Название курса обязательно для заполнения.");
       return;
@@ -44,7 +38,6 @@ export const CreateCoursePage = () => {
       return;
     }
 
-    
     if (!text.trim()) {
       alert("Контент курса не может быть пустым.");
       return;
@@ -52,20 +45,21 @@ export const CreateCoursePage = () => {
     const courseData = {
       title: title,
       description: description,
-      content: text, 
+      content: text,
     };
     setTitle("");
     setDescription("");
     setText("");
-    
+
     createCourse(courseData)
-      .then((response) => {
-        console.log("Ответ от сервера:", response);
+      .then(() => {
         alert("Курс успешно создан!");
       })
       .catch((error) => {
         console.error("Ошибка при создании курса:", error);
-        alert("Произошла ошибка при создании курса. Пожалуйста, попробуйте снова.");
+        alert(
+          "Произошла ошибка при создании курса. Пожалуйста, попробуйте снова.",
+        );
       });
   };
 
@@ -74,49 +68,44 @@ export const CreateCoursePage = () => {
       <Header />
 
       <Container>
-        
         <div className={styles.metaInputs}>
-          
-            <label htmlFor="course-title">Название курса</label>
-            <Input
-              id="course-title"
-              type="text"
-              placeholder="Введите название курса"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className={styles.inputField}
-              required
-            />
-          
+          <label htmlFor="course-title">Название курса</label>
+          <Input
+            id="course-title"
+            type="text"
+            placeholder="Введите название курса"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className={styles.inputField}
+            required
+          />
 
-          
-            <label htmlFor="course-desc">Описание курса</label>
-            <Input
-              id="course-desc"
-              type="text"
-              placeholder="Введите краткое описание курса"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className={styles.textareaField}
-              required
-            />
-          
+          <label htmlFor="course-desc">Описание курса</label>
+          <Input
+            id="course-desc"
+            type="text"
+            placeholder="Введите краткое описание курса"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className={styles.textareaField}
+            required
+          />
         </div>
-        <div className = {styles.editorLayout}>
+        <div className={styles.editorLayout}>
           <div className={styles.editor}>
             <MarkdownEditor value={text} onChange={setText} />
             <div className={styles.footer}>
-            <button className={styles.submitBtn} onClick={handleSubmit}>
-          Создать
-        </button>
-        </div>
+              <button className={styles.submitBtn} onClick={handleSubmit}>
+                Создать
+              </button>
+            </div>
           </div>
           <div className={styles.preview}>
             <MarkdownPreview text={text} />
           </div>
         </div>
       </Container>
-      <ChatWidget/>
+      <ChatWidget />
       <Footer />
     </>
   );

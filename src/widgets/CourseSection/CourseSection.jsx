@@ -5,7 +5,6 @@ import { CourseCard } from "../../entities/course/ui/CourseCard";
 export const CourseSection = ({ title, courses, type}) => {
 
   const coursesToDisplay = courses
-  console.log(coursesToDisplay)
   return (
     <section className={styles.section}>
       <Container>
