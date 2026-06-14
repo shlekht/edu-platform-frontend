@@ -46,6 +46,8 @@
   padding: 10px;
   cursor: pointer;
   border: 1px solid #ccc;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .divider {

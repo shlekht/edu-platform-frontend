@@ -1,19 +1,17 @@
 .editorLayout {
   display: flex;
+  align-items: flex-start; /* выравнивание по верхнему краю */
   gap: 20px;
-  
- 
-  padding-top: 20px;
 }
+
 .editor {
   flex: 1;
+  
 }
 
 .preview {
   flex: 1;
-  padding-top: 60px;
-  min-width: 0;   
-  
+  padding-top:20px;
 }
 .footer {
   margin-top: 10px;
