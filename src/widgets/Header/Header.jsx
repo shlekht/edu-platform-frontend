@@ -15,7 +15,7 @@ export const Header = () => {
     <header className={styles.header}>
       <Container>
         <div className={styles.inner}>
-          <div className={styles.logo}>☀️ Zerde</div>
+          <div className={styles.logo}>☀️ Платформа</div>
 
           <nav className={styles.nav}>
             <Button onClick={() => navigate("/")} >📚 Главная</Button>

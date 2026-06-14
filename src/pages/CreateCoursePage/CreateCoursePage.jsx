@@ -52,8 +52,7 @@ export const CreateCoursePage = () => {
     setText("");
 
     createCourse(courseData)
-      .then((response) => {
-        console.log("Ответ от сервера:", response);
+      .then(() => {
         alert("Курс успешно создан!");
       })
       .catch((error) => {
