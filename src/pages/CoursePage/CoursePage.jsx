@@ -12,88 +12,33 @@ import { Button } from "../../shared/ui/Button/Button";
 import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown-light.css";
 
-import { getCourseById, deleteCourse } from "../../entities/course/api";
-import { getDefaultCourseById } from "../../entities/course/model/defaultCourses";
-import { getCommentsByCourseId } from "../../entities/comment/api";
 import { ContentSwitcher } from "../../features/switchContent/ui/ContentSwitcher";
+import { useCourse } from "../../entities/course/hooks";
+import { useComments } from "../../entities/comment/hooks";
+import { useDeleteCourse } from "../../features/deleteCourse/useDeleteCourse";
 
 export const CoursePage = () => {
   const { type, id } = useParams();
-  const [course, setCourse] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("course");
 
-  const [comments, setComments] = useState([]);
-  const [commentsLoading, setCommentsLoading] = useState(false);
   const { user } = useUserContext();
-
   useEffect(() => {
-    
-
     if (!user) {
       alert("Для просмотра курса необходимо войти в систему.");
       window.location.href = "/";
     }
   }, [user]);
 
-  // useEffect на сам курс
-  useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        setLoading(true);
+  const { course, isLoading } = useCourse(id, type); // custom hook for getCourseById
+  const { comments, commentsLoading } = useComments(id); // custom hook for getCommentsByCourseId
+  const { handleDelete } = useDeleteCourse(id); // custom hook for deleteCourse
 
-        if (type === "default") {
-          const data = getDefaultCourseById(id);
-          setCourse(data);
-        } else {
-          const data = await getCourseById(id);
-          setCourse(data);
-        }
-      } catch (error) {
-        console.error("Ошибка при загрузке курса:", error);
-        setCourse(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCourse();
-  }, [type, id]);
-
-  // useEffect на комментарии курса
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        setCommentsLoading(true);
-        const data = await getCommentsByCourseId(id);
-        setComments(data);
-      } catch (error) {
-        console.error("Ошибка при загрузке комментариев:", error);
-      } finally {
-        setCommentsLoading(false);
-      }
-    };
-
-    fetchComments();
-  }, [id]);
-  if (loading) {
+  if (isLoading) {
     return <div>Загрузка курса...</div>;
   }
   if (!course) {
     return <div>Курс не найден или удалён.</div>;
   }
-
-  const handleDelete = async () => {
-    if (window.confirm("Вы уверены, что хотите удалить этот курс?")) {
-      try {
-        await deleteCourse(id);
-        alert("Курс успешно удалён.");
-        window.location.href = "/";
-      } catch (error) {
-        console.error("Ошибка при удалении курса:", error);
-      }
-    }
-  };
 
   const canDelete = type === "custom" && user && user.id === course.author_id;
 
@@ -127,13 +72,15 @@ export const CoursePage = () => {
         ) : null}
 
         {activeTab === "course" ? (
-          loading ? (
+          isLoading ? (
             <p>Загрука курса...</p>
           ) : (
             <div
               className="markdown-body"
               style={{ backgroundColor: "#F3F4F6", paddingTop: "30px" }}
-            > <h4>Описание: {course.description}</h4>
+            >
+              {" "}
+              <h4>Описание: {course.description}</h4>
               <ReactMarkdown>{course.content}</ReactMarkdown>
             </div>
           )
