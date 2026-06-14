@@ -6,14 +6,6 @@
   max-width: 600px;
 }
 
-.toolbar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #30363d;
-  padding-bottom: 10px;
-}
-
 .button {
   background: transparent;
   border: none;

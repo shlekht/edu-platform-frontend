@@ -5,7 +5,7 @@ import { useUserContext } from "../../entities/user/model/userContext";
 import { Header } from "../../widgets/Header/Header";
 import { Footer } from "../../widgets/Footer/Footer";
 import { ChatWidget } from "../../widgets/ChatWidget/ChatWidget";
-import { CommentsSection } from "../../widgets/commentsSection/CommentsSection";
+import { CommentsSection } from "../../widgets/CommentsSection/CommentsSection";
 import { Container } from "../../shared/ui/Container/Container";
 import { Button } from "../../shared/ui/Button/Button";
 
@@ -88,7 +88,7 @@ export const CoursePage = () => {
       try {
         await deleteCourse(id);
         alert("Курс успешно удалён.");
-        window.location.href = "edu-platform-frontend/";
+        window.location.href = "/";
       } catch (error) {
         console.error("Ошибка при удалении курса:", error);
       }
@@ -133,7 +133,7 @@ export const CoursePage = () => {
             <div
               className="markdown-body"
               style={{ backgroundColor: "#F3F4F6", paddingTop: "30px" }}
-            >
+            > <h4>Описание: {course.description}</h4>
               <ReactMarkdown>{course.content}</ReactMarkdown>
             </div>
           )

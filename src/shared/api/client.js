@@ -4,7 +4,7 @@ const AUTH_ENDPOINTS = ['/auth/token', '/auth/register'];
 
 export const apiClient = axios.create({
   baseURL: 'http://localhost:8000',
-  timeout: 10000,
+  timeout: 20000,
   headers: { 'X-Custom-Header': 'my-custom-value' }
 });
 
